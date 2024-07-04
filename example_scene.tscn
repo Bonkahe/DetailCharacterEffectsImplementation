@@ -1,0 +1,268 @@
+[gd_scene load_steps=42 format=3 uid="uid://dpjyjuj3evlgb"]
+
+[ext_resource type="Shader" uid="uid://cp1dfi5vymfdx" path="res://TerrainShader.tres" id="1_ugujn"]
+[ext_resource type="Script" path="res://Player/PlayerController.gd" id="2_o8hxp"]
+[ext_resource type="Shader" uid="uid://b2h15geiq8427" path="res://WaterShader.tres" id="3_0rjay"]
+[ext_resource type="PackedScene" uid="uid://5ugnuuj8y07u" path="res://addons/DetailEnviromentInteractions/PackedScenes/DetailsRenderer.tscn" id="4_fy8ks"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_45qvn"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_of7vw"]
+sky_material = SubResource("ProceduralSkyMaterial_45qvn")
+
+[sub_resource type="Environment" id="Environment_apf5f"]
+background_mode = 2
+sky = SubResource("Sky_of7vw")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_2wqb5"]
+size = Vector2(50, 50)
+subdivide_width = 500
+subdivide_depth = 500
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ugpo6"]
+render_priority = 0
+shader = ExtResource("1_ugujn")
+shader_parameter/FootstepDepth = 0.2
+shader_parameter/Albedo = Color(0.65745, 0.704301, 0.73252, 1)
+shader_parameter/Roughness = 0.533
+shader_parameter/FadeEffectAtEdges = null
+shader_parameter/EdgeFadeSmoothness = null
+shader_parameter/NormalSampleRange = 0.21
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_n7h6t"]
+size = Vector3(50, 0.5, 50)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_ne1va"]
+size = Vector2(10, 10)
+subdivide_width = 100
+subdivide_depth = 100
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bsxyj"]
+render_priority = 0
+shader = ExtResource("3_0rjay")
+shader_parameter/WaveHeight = 0.2
+shader_parameter/Albedo = Color(0.167862, 0.240304, 0.263708, 1)
+shader_parameter/Roughness = 0.089
+shader_parameter/FadeEffectAtEdges = true
+shader_parameter/EdgeFadeSmoothness = 10.0
+shader_parameter/NormalSampleRange = 0.1
+
+[sub_resource type="Gradient" id="Gradient_00ba8"]
+offsets = PackedFloat32Array(0.425455, 0.712727, 0.781818)
+colors = PackedColorArray(0, 0, 1, 0, 0, 0, 1, 1, 0, 0, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_hs0l3"]
+gradient = SubResource("Gradient_00ba8")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fclkx"]
+transparency = 1
+blend_mode = 1
+no_depth_test = true
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_color = Color(1, 1, 1, 0.282353)
+albedo_texture = SubResource("GradientTexture2D_hs0l3")
+
+[sub_resource type="Curve" id="Curve_q1su5"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_pt8fn"]
+curve = SubResource("Curve_q1su5")
+
+[sub_resource type="Curve" id="Curve_vygi1"]
+_data = [Vector2(0, 0.077886), 0.0, 0.626109, 0, 0, Vector2(1, 1), 0.949988, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_s1gu7"]
+curve = SubResource("Curve_vygi1")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_cjyxq"]
+lifetime_randomness = 0.25
+particle_flag_damping_as_friction = true
+inherit_velocity_ratio = 0.4
+direction = Vector3(0, 1, 0)
+spread = 180.0
+gravity = Vector3(0, 0, 0)
+damping_min = 5.508
+damping_max = 5.508
+scale_min = 14.0
+scale_max = 15.0
+scale_curve = SubResource("CurveTexture_s1gu7")
+alpha_curve = SubResource("CurveTexture_pt8fn")
+
+[sub_resource type="QuadMesh" id="QuadMesh_dopa7"]
+orientation = 1
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_jqxt5"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_i50ut"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_656tx"]
+
+[sub_resource type="Gradient" id="Gradient_7bqlo"]
+offsets = PackedFloat32Array(0.589091, 0.854545, 0.934545)
+colors = PackedColorArray(0, 0, 1, 0, 0, 0, 1, 1, 0, 0, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_jtoe0"]
+gradient = SubResource("Gradient_7bqlo")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ykb67"]
+transparency = 1
+blend_mode = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_color = Color(1, 1, 1, 0.294118)
+albedo_texture = SubResource("GradientTexture2D_jtoe0")
+
+[sub_resource type="Curve" id="Curve_p40t4"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.494845, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_26q1i"]
+curve = SubResource("Curve_p40t4")
+
+[sub_resource type="Curve" id="Curve_2tg5l"]
+max_value = 100.0
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 19.541), 21.9228, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_marpg"]
+curve = SubResource("Curve_2tg5l")
+
+[sub_resource type="Curve" id="Curve_4uq30"]
+_data = [Vector2(0, 0.132128), 0.0, 0.584608, 0, 0, Vector2(1, 1), 1.27779, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_k4q12"]
+curve = SubResource("Curve_4uq30")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_qbslo"]
+inherit_velocity_ratio = 0.2
+gravity = Vector3(0, 0, 0)
+damping_min = 1.0
+damping_max = 1.0
+damping_curve = SubResource("CurveTexture_marpg")
+scale_min = 10.0
+scale_max = 11.0
+scale_curve = SubResource("CurveTexture_k4q12")
+alpha_curve = SubResource("CurveTexture_26q1i")
+
+[sub_resource type="QuadMesh" id="QuadMesh_5pd1r"]
+orientation = 1
+
+[sub_resource type="Gradient" id="Gradient_kekw0"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0.44, 0.869091)
+colors = PackedColorArray(1, 0, 0, 1, 1, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_pckb4"]
+gradient = SubResource("Gradient_kekw0")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cy2ut"]
+transparency = 1
+no_depth_test = true
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_color = Color(1, 0, 0, 1)
+albedo_texture = SubResource("GradientTexture2D_pckb4")
+
+[sub_resource type="Curve" id="Curve_afc0p"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.707904, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -4.01356, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_obv2k"]
+curve = SubResource("Curve_afc0p")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_flsqh"]
+emission_shape = 3
+emission_box_extents = Vector3(0.25, 0, 0.1)
+gravity = Vector3(0, 0, 0)
+scale_max = 1.2
+alpha_curve = SubResource("CurveTexture_obv2k")
+
+[node name="ExampleScene" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_apf5f")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
+shadow_enabled = true
+
+[node name="ExampleTerrain" type="MeshInstance3D" parent="."]
+mesh = SubResource("PlaneMesh_2wqb5")
+surface_material_override/0 = SubResource("ShaderMaterial_ugpo6")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="ExampleTerrain"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ExampleTerrain/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
+shape = SubResource("BoxShape3D_n7h6t")
+
+[node name="ExampleWater" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.53425, 0.588906, 5.93897)
+mesh = SubResource("PlaneMesh_ne1va")
+surface_material_override/0 = SubResource("ShaderMaterial_bsxyj")
+
+[node name="Ripples" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+visible = false
+layers = 262144
+material_override = SubResource("StandardMaterial3D_fclkx")
+amount = 16
+lifetime = 2.5
+process_material = SubResource("ParticleProcessMaterial_cjyxq")
+draw_pass_1 = SubResource("QuadMesh_dopa7")
+
+[node name="PlayerBody" type="CharacterBody3D" parent="." node_paths=PackedStringArray("CameraContainerNode")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+script = ExtResource("2_o8hxp")
+CameraContainerNode = NodePath("CameraContainer")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="PlayerBody"]
+mesh = SubResource("CapsuleMesh_jqxt5")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="PlayerBody/MeshInstance3D"]
+transform = Transform3D(0.619868, 0, 0, 0, 0.678462, 0, 0, 0, 1, 0, 0.658649, -0.379571)
+mesh = SubResource("BoxMesh_i50ut")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PlayerBody"]
+shape = SubResource("CapsuleShape3D_656tx")
+
+[node name="CameraContainer" type="Node3D" parent="PlayerBody"]
+
+[node name="Camera3D" type="Camera3D" parent="PlayerBody/CameraContainer"]
+transform = Transform3D(1, 0, 0, 0, 0.997021, 0.0771367, 0, -0.0771367, 0.997021, 0, 1.29109, 4.69295)
+cull_mask = 786431
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="PlayerBody"]
+layers = 262144
+material_override = SubResource("StandardMaterial3D_ykb67")
+process_material = SubResource("ParticleProcessMaterial_qbslo")
+draw_pass_1 = SubResource("QuadMesh_5pd1r")
+
+[node name="Footsteps" type="GPUParticles3D" parent="PlayerBody"]
+layers = 262144
+material_override = SubResource("StandardMaterial3D_cy2ut")
+amount = 1000
+lifetime = 50.0
+process_material = SubResource("ParticleProcessMaterial_flsqh")
+draw_pass_1 = SubResource("QuadMesh_dopa7")
+
+[node name="SubViewport" parent="." node_paths=PackedStringArray("PlayerModel") instance=ExtResource("4_fy8ks")]
+size = Vector2i(1024, 1024)
+PlayerModel = NodePath("../PlayerBody")
